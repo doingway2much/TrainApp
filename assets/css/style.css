@@ -1,3 +1,9 @@
+.jumbotron {
+    background-color: #FF7500;
+    /* background-image: url("https://cdn.vox-cdn.com/uploads/chorus_image/image/54884027/King_20Memorial_2011.0.0.0.jpg"); */
+    background-size: cover;
+}
+
 .content  {
     border-style: solid;
     border-color: #0092D0;
