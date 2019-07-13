@@ -1,7 +1,11 @@
+body {
+    background-image: url("http://static1.squarespace.com/static/5b6799645b409b9876b2a389/5b75562470a6adf7038326c0/5c92540d71c10b94b5801eab/1553098426344/MARTA_-_N3_Station.jpg");
+    background-size: cover;
+}
+
 .jumbotron {
     background-color: #FF7500;
-    /* background-image: url("https://cdn.vox-cdn.com/uploads/chorus_image/image/54884027/King_20Memorial_2011.0.0.0.jpg"); */
-    background-size: cover;
+    
 }
 
 .content  {
