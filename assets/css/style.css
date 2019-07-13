@@ -4,6 +4,8 @@ body {
 }
 
 .jumbotron {
+    color: white;
+    font-weight: bold;
     background-color: #FF7500;
     
 }
@@ -15,3 +17,8 @@ body {
     padding: 15px;
 }
 
+.card-header {
+    color: white;
+    font-weight: bold;
+    background-color: #0092D0;
+}
