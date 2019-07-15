@@ -33,7 +33,7 @@ $("#submit-train").on("click", function(event) {
 //   console.log(frequencyTime);
 
 // Set values in Firebase
-database.ref().push({
+database.ref('trains/').push({
     trainName: trainName,
     destinationName: destinationName,
     firstTrainTime: firstTrainTime,
@@ -43,10 +43,12 @@ database.ref().push({
 
 });
 
-  database.ref().on("child_added", function(childSnapshot) {
-
+  database.ref('trains/').on("child_added", function(childSnapshot) {
+ 
+       
+        // var shanpshot = childSnapshot
 // Creates variable for the childSnapshot      
-    var snapshotValue = childSnapshot.val();
+    const snapshotValue = childSnapshot.val();
 // Gets current time
     var currentTime = moment();
 // Coverts time so it willalways be behind the time entered
@@ -59,7 +61,7 @@ database.ref().push({
     var minsTillTrian = snapshotValue.frequencyTime - timeRemaining;
 // Calculates misn away based on the minsTillTrian cvariable
     var nextTrain = moment().add(minsTillTrian, "minutes");
-
+    console.log(childSnapshot);
 
     if(snapshotValue.trainName === "blah"){
         console.log("Looks like that trian is already there")
@@ -67,16 +69,64 @@ database.ref().push({
     }else {
 // Create the new row
     var newRow = $("<tr>").append(
+    $("<td>").html("<button class='update' data-toggle='modal' data-target='#exampleModal' data-key=" + "'" + childSnapshot.key + "'" + "data-freq=" + "'" + snapshotValue.frequencyTime + "'" + "data-first=" + "'" + snapshotValue.firstTrainTime + "'" + "><i class='fas fas fa-edit'></i></button>"),
+    $("<td>").html("<button class='delete' data-key=" + "'" + childSnapshot.key + "'" + "><i class='fas fa-minus-circle'></i></button>"),
     $("<td>").text(snapshotValue.trainName),
     $("<td>").text(snapshotValue.destinationName),
     $("<td>").text(snapshotValue.frequencyTime),
     $("<td>").text(moment(nextTrain).format("hh:mm")),
     $("<td>").text(minsTillTrian)
     
+    
    
   );
   $("#train-table > tbody").append(newRow);
+  
+
+
 
     }
+    $(document.body).on("click", ".delete", function () {
+        var key = $(this).data('key');
+        // console.log(key);
+        firebase.database().ref('trains/').child(key).remove();
+
+    });
+
+    $(".update").on("click", function () {
+      var key = $(this).data('key');
+      console.log(key);
+      $("#exampleModal").show()
+      $(".modal-header")
+
+      $("#update-train").on("click", function(event) {
+        event.preventDefault();
+        // var key = $(this).data('key');
+        // console.log(key);
+        
+    //Get Inputs from update Train modal
+      var updatedTrainTime = ($("#updateFirst").val().trim());
+      var updatedFrequencyTime = parseInt($("#updateFrequency").val().trim());
     
-  });
+    
+    // Update values in Firebase
+        
+        firebase.database().ref('trains/').child(key).update({
+        firstTrainTime: updatedTrainTime,
+        frequencyTime: updatedFrequencyTime,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+      });
+    
+    
+    });
+        
+    
+
+    });
+});
+        
+        
+
+
+
+

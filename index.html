@@ -14,6 +14,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -23,56 +26,41 @@
             <h1 class="display-4">Marta's Train Scheduler</h1>
             <p class="lead">This App will let you add new trains and get updates of exsisting ones</p>
         </div>
-        <!-- <div class="content"> -->
-                <div class="card mb-4">
-                        <div class="card-header">Current Train Schedule</div>
-                        <div class="card-body">
+        <div class="card mb-4">
+            <div class="card-header">Current Train Schedule</div>
+            <div class="card-body">
                 <table class="table table-sm table-hover" id="train-table">
-                <thead>
-                    <tr>
-                        <th scope="col">Train Name</th>
-                        <th scope="col">Destination</th>
-                        <th scope="col">Frequency (mins)</th>
-                        <th scope="col">Next Arrivial</th>
-                        <th scope="col">Minutes Away</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- <tr>
-                        <th scope="row">North Bound Train</th>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">South Bound Train</th>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">West Bound Train</th>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                        <td>Testing</td>
-                    </tr> -->
-                </tbody>
-            </table>
-        </div>
-        <br>
-       
-           
-                    <div class="card mb-4">
-                            <div class="card-header">Current Train Schedule</div>
-                            <div class="card-body">
+                    <thead>
+                        <tr>
+                            <th scope="col">Update</th>
+                            <th scope="col">Remove</th>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency (mins)</th>
+                            <th scope="col">Next Arrivial</th>
+                            <th scope="col">Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+
+
+            <div class="card mb-4">
+                <div class="card-header">Current Train Schedule</div>
+                <div class="card-body">
                     <table class="table table-sm table-hover" id="train-table">
-                    <label for="trainName">Train Name</label>
-                    <input type="name" class="form-control" id="trainInput" placeholder="">
+                        <label for="trainName">Train Name</label>
+                        <input type="name" class="form-control" id="trainInput" placeholder="">
+
+                        
+
                 </div>
-                <form>
+
+            </div>
+            <form>
                 <div class="form-group">
                     <label for="destinationName">Destination</label>
                     <input type="destination" class="form-control" id="destinationInput" placeholder="">
@@ -85,13 +73,48 @@
                     <label for="frequencyMin">Frequency (min)</label>
                     <input type="frequency" class="form-control" id="frequencyInput" placeholder="">
                 </div>
-                
+
                 <button id="submit-train" type="submit" class="btn btn-primary">Submit</button>
             </form>
 
         </div>
 
     </div>
+    </div>
+<!-- Button to Open the Modal -->
+<!-- Button trigger modal -->
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Update Train Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="form-group">
+                    <label for="firstTrain">First Train Time (HH:mm - military time)</label>
+                    <input type="first" class="form-control" id="updateFirst" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="frequencyMin">Frequency (min)</label>
+                    <input type="frequency" class="form-control" id="updateFrequency" placeholder="">
+                </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="update-train" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- <button id="live-data" type="live=submit" class="btn btn-primary">Get the Data</button> -->
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -101,6 +124,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://kit.fontawesome.com/8576a8272e.js"></script>
     <script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
 
