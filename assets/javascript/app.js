@@ -145,5 +145,5 @@ $(document).ready(function () {
 setInterval(function() {
  
   // window.location.reload();
-  $("#train-table").load(location.href + " #train-table>*", "");
+  $("#train-table").load(location.href + " #train-table");
 }, 10000); 
