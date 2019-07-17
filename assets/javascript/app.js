@@ -90,6 +90,7 @@ database.ref('trains/').push({
         var key = $(this).data('key');
         // console.log(key);
         firebase.database().ref('trains/').child(key).remove();
+        location.reload();
 
     });
 
@@ -110,16 +111,17 @@ database.ref('trains/').push({
     
     
     // Update values in Firebase
-        
         firebase.database().ref('trains/').child(key).update({
         firstTrainTime: updatedTrainTime,
         frequencyTime: updatedFrequencyTime,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
       });
-    
+        $(".modal-body").html("<p id='success'>Undated train details click close to see the change.</p>");
+        // location.reload()
     
     });
-        
+      
+
     
 
     });
@@ -127,6 +129,21 @@ database.ref('trains/').push({
         
         
 
+//CURRENT TIME AND DATE USING MOMENT.JS:
+var datetime = null,
+    date = null;
+var update = function () {
+    date = moment(new Date())
+    datetime.html(date.format('dddd, MMMM Do YYYY, H:mm:ss '));
+};
+$(document).ready(function () {
+    datetime = $('#currentStatus')
+    update();
+    setInterval(update, 1000);
+});
 
-
-
+setInterval(function() {
+ 
+  // window.location.reload();
+  $("#train-table").load(location.href + " #train-table>*", "");
+}, 10000); 
